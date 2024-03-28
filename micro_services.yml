@@ -1,0 +1,116 @@
+# ---------Deployments
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: server-app
+  template:
+    metadata:
+      labels:
+        app: server-app
+    spec:
+      containers:
+      - name: server-container
+        image: ch12388/build_something:server
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: encryption-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: encryption-app
+  template:
+    metadata:
+      labels:
+        app: encryption-app
+    spec:
+      containers:
+        - name: encryption-container
+          image: ch12388/build_something:encryption
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5001
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: database-app
+  template:
+    metadata:
+      labels:
+        app: database-app
+    spec:
+      containers:
+        - name: database-container
+          image: ch12388/build_something:database
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5002
+
+
+#----------- Services
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: server-service
+spec:
+  type: NodePort
+  selector:
+    app: server-app
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: encryption-service
+spec:
+  type: NodePort
+  selector:
+    app: encryption-app
+  ports:
+    - protocol: TCP
+      port: 5001
+      targetPort: 5001
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database-service
+spec:
+  type: NodePort
+  selector:
+    app: database-app
+  ports:
+    - protocol: TCP
+      port: 5002
+      targetPort: 5002
+
+
+
+
+
+
