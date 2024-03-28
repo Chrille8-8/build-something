@@ -1,11 +1,12 @@
 # Some code of this makefile is created with help of chatGPT
 # Author: Christoffer Persson 
+
+
 # Names/tags for the microservices
 SERVER:= server
 ENCRYPTION := encryption
 DATABASE := database
 # Name of service
-#SERVICENAME := microservices
 SERVICENAME := server-service
 
 #

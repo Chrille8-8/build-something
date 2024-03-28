@@ -1,5 +1,5 @@
 /*
-The db looks like this
+The db looks like this:
 | ID (INTEGER PRIMARY KEY) | Text (TEXT)   | Key (INTEGER) |
 |--------------------------|---------------|---------------|
 | 1                        | afnasncasn    | 3             |
